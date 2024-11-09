@@ -15,10 +15,15 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-      - name: Build Docker Image
-        run: echo "Build docker image"
-      - name: Send image
-        run: echo "Sending docker image"
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./src
+          file: ./src/Dockerfile
+          push: true
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/fake-shop:latest
+            ${{ secrets.DOCKER_USERNAME }}/fake-shop:v${{ github.run_number }}
 
   cd:
     runs-on: ubuntu-latest
