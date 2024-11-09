@@ -1,0 +1,26 @@
+name: CI-CD
+
+on: 
+  push: 
+    branches: ["master"]
+  workflow_dispatch:
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Autenticate on Docker Hub
+        run: echo "Exec command Docker login"
+      - name: Build Docker Image
+        run: echo "Build docker image"
+      - name: Send image
+        run: echo "Sending docker image"
+
+  cd:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Autenticate on Aws
+        run: echo "AWS configure"
+      - name: Configure kubectl
+        run: echo "Kubectl configure"
+      - name: Apply manifest
+        run: echo "Kubectl apply"
